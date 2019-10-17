@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta char="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Scraping Mars</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    <body>
+
+<!--scrape button-->
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Mission to Mars</h1>
+        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+                </div>
+						
+<!-- news article -->
+<div class="row">
+<div class="col-md-12">
+    <h1 class="heading"><strong>Latest Mars News</strong>
+    <h3 class="heading">{{ mars.news_title }}</h4>
+    <p>{{ mars.news_snip }}</p>
+</div>
+</div>
+            
+<!-- images -->
+<div class="row">
+    <div class="col-md-8">
+        <h1 class="heading"><strong>Featured Mars Image</strong></h1>
+        <img src="{{ mars.featured_image_url }}" class="img-responsive"
+            alt="Mars Images">
+            <br>
+</div> 
+</div>
+
+<!-- weather -->
+<div class="col-md-4">
+    <div class="panel-body">
+        <h4>Current Weather on Mars</h4>
+        <hr size=2>
+        <p>{{mars.mars_weather}}</p>
+    </div>
+    <div class="col-md-12">
+            <h4>Mars Facts</h4>
+            <hr size=2>
+            <table border="1" class="dataframe">
+                {{mars.fact_table|safe}}
+            </table>  
+    </div>
+    
+</div>
+</div>
+
+            
+
+<!-- Mars Hemisphere -->
+<div class="row">
+    <br>
+    <h1 class="heading text-center"><strong>Mars Hemisphere</strong></h2>
+    <div class="col-md-6">
+        <div class="col-md-12">
+            {% for pic in mars.hemisphere_image[0:2] %}           
+                <img class = "img img-thumbnail" src="{{pic['url']}}" alt="hemisphere" style="width:50%;">
+                <div class="caption"style="font-weight: bold;">
+                    {{pic['Title']}}
+                </div>                                           
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-12">
+            {% for pic in mars.hemisphere_image[2:4] %}
+                            
+                <img src="{{pic['url']}}" alt="hemisphere" style="width:50%;">
+                <div class="caption "style="font-weight: bold;">
+                    {{pic['Title']}}
+                </div>                                           
+            {% endfor %}
+        </div>
+    </div>
+    
+</div>
+</div>
+</body>
+</html>
